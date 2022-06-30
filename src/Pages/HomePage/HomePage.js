@@ -3,12 +3,35 @@ import AddNewBill from '../AddNewBill/AddNewBill';
 import BillingList from '../BillingList/BillingList';
 import BillingModal from '../BillingModal/BillingModal';
 import Navbar from '../Navbar/Navbar';
+import { toast } from 'react-toastify';
 
 const HomePage = () => {
         const [billing, setBilling] = useState(null)
         const [informations, setInformations] = useState([]);
 
-        // Load Date from Backend:
+
+        // Delete Billing Information:
+        // Handle Delete Item:
+        const handleDeleteBill = deletedBill => {
+                const sure = window.confirm(`Are you sure to delete ${deletedBill.name} ?`);
+                if (sure) {
+                        const url = `http://localhost:5000/api/delete-billing/${deletedBill._id}`;
+                        fetch(url, {
+                                method: 'DELETE',
+                        })
+                                .then(res => res.json())
+                                .then(data => {
+                                        if (data.deletedCount > 0) {
+                                                toast.success(`Successfully Delete Billing Information!`);
+                                        }
+                                        else {
+                                                toast("something went wrong! Please try again");
+                                        }
+                                })
+                }
+        }
+
+        // Load Data from Backend:
         useEffect(() => {
                 fetch('http://localhost:5000/api/billing-list')
                         .then(res => res.json())
@@ -38,6 +61,7 @@ const HomePage = () => {
                                                                 informations.map(information => <BillingList
                                                                         key={information._id}
                                                                         information={information}
+                                                                        handleDeleteBill={handleDeleteBill}
                                                                 ></BillingList>)
                                                         }
                                                 </tbody>

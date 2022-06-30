@@ -3,6 +3,7 @@ import './BillingModal.css';
 import { toast } from 'react-toastify';
 
 const BillingModal = ({ setBilling }) => {
+        // Add New Billing Information:
         const handleForm = e => {
                 e.preventDefault();
                 const name = e.target.name.value;
@@ -37,6 +38,7 @@ const BillingModal = ({ setBilling }) => {
                 setBilling(null);
 
         }
+
         return (
                 <div>
                         <input type="checkbox" id="billing-modal" class="modal-toggle" />

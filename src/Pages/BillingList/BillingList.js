@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BillingList = ({ information }) => {
+const BillingList = ({ information, handleDeleteBill }) => {
         const { _id, name, amount, email, phone } = information;
         return (
                 <tr>
@@ -9,7 +9,7 @@ const BillingList = ({ information }) => {
                         <td>{email}</td>
                         <td>{phone}</td>
                         <td>{amount}</td>
-                        <td><button class="btn btn-outline  btn-sm mr-2">Edit</button>  |  <button class="btn btn-outline btn-sm ml-2">Delete</button></td>
+                        <td><button class="btn btn-outline  btn-sm mr-2">Edit</button>  |  <button onClick={() => handleDeleteBill(information)} class="btn btn-outline btn-sm ml-2">Delete</button></td>
                 </tr>
         );
 };
