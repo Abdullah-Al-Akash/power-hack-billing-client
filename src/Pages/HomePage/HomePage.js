@@ -7,7 +7,9 @@ import { toast } from 'react-toastify';
 
 const HomePage = () => {
         const [billing, setBilling] = useState(null)
+        const [updateModal, setUpdateModal] = useState(null)
         const [informations, setInformations] = useState([]);
+        const [updateInformation, setUpdateInformation] = useState({});
 
 
         // Delete Billing Information:
@@ -29,6 +31,12 @@ const HomePage = () => {
                                         }
                                 })
                 }
+        }
+
+        // Update Billing Information:
+        const handleUpdateBill = billingInformation => {
+                setUpdateModal(1);
+                setUpdateInformation(billingInformation)
         }
 
         // Load Data from Backend:
@@ -62,6 +70,7 @@ const HomePage = () => {
                                                                         key={information._id}
                                                                         information={information}
                                                                         handleDeleteBill={handleDeleteBill}
+                                                                        handleUpdateBill={handleUpdateBill}
                                                                 ></BillingList>)
                                                         }
                                                 </tbody>
@@ -71,9 +80,18 @@ const HomePage = () => {
                         {
                                 billing && <BillingModal
                                         setBilling={setBilling}
+                                        method="POST"
                                 ></BillingModal>
                         }
-                </div>
+                        {
+                                updateModal && <BillingModal
+                                        setBilling={setBilling}
+                                        method="PUT"
+                                        updateInformation={updateInformation}
+                                        setUpdateModal={setUpdateModal}
+                                ></BillingModal>
+                        }
+                </div >
         );
 };
 

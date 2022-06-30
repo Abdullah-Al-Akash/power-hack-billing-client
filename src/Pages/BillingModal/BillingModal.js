@@ -2,15 +2,17 @@ import React from 'react';
 import './BillingModal.css';
 import { toast } from 'react-toastify';
 
-const BillingModal = ({ setBilling }) => {
+const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal }) => {
         // Add New Billing Information:
         const handleForm = e => {
                 e.preventDefault();
-                const name = e.target.name.value;
-                const email = e.target.email.value;
-                const phone = e.target.phone.value;
-                const amount = e.target.amount.value;
+                //Catch All Information:
+                let name = e.target.name.value;
+                let email = e.target.email.value;
+                let phone = e.target.phone.value;
+                let amount = e.target.amount.value;
 
+                // Set a Object for update and push data:
                 const billingData = {
                         name: name,
                         email: email,
@@ -18,25 +20,51 @@ const BillingModal = ({ setBilling }) => {
                         amount: amount
                 }
 
-                const url = 'http://localhost:5000/api/add-billing';
-                fetch(url, {
-                        method: 'POST',
-                        headers: {
-                                "content-type": "application/json"
-                        },
-                        body: JSON.stringify(billingData)
-                })
-                        .then(res => res.json())
-                        .then(result => {
-                                if (result.insertedId) {
-                                        toast.success("Successfully Paid Bill!");
-                                }
-                                else {
-                                        toast("Something Went Wrong. Please ry again!")
-                                }
+                // When Post method Apply:
+                if (method === 'POST') {
+                        const url = 'http://localhost:5000/api/add-billing';
+                        fetch(url, {
+                                method: method,
+                                headers: {
+                                        "content-type": "application/json"
+                                },
+                                body: JSON.stringify(billingData)
                         })
-                setBilling(null);
+                                .then(res => res.json())
+                                .then(result => {
+                                        if (result.insertedId) {
+                                                toast.success("Successfully Paid Bill!");
+                                        }
+                                        else {
+                                                toast("Something Went Wrong. Please ry again!")
+                                        }
+                                })
+                        setBilling(null);
+                }
 
+                // When PUT method Apply:
+                if (method === "PUT") {
+                        const url = `http://localhost:5000/api/update-billing/${updateInformation._id}`
+                        fetch(url, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(billingData)
+                        })
+                                .then(res => res.json())
+                                .then(result => {
+                                        if (result.modifiedCount > 0) {
+                                                toast.success("Successfully Update Bill");
+                                        }
+                                        else {
+                                                toast("Something went wrong!")
+                                        }
+                                })
+                        setUpdateModal(null);
+                }
+                e.target.name.value = '';
+                e.target.email.value = '';
+                e.target.phone.value = '';
+                e.target.amount.value = '';
         }
 
         return (
