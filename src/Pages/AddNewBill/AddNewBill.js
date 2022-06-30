@@ -1,7 +1,7 @@
 import React from 'react';
 import './AddNewBill.css';
 
-const AddNewBill = () => {
+const AddNewBill = ({ setBilling }) => {
         return (
                 <div className="container mx-auto px-24 pt-24">
                         <div class="navbar bg-red-100">
@@ -14,7 +14,7 @@ const AddNewBill = () => {
 
                                 <div class="flex-none gap-2">
                                         <div class="dropdown dropdown-end">
-                                                <button class="btn btn-wide">Add New Bill</button>
+                                                <label onClick={() => setBilling(1)} for="billing-modal" class="btn btn-wide">Add New Bill</label>
                                         </div>
                                 </div>
                         </div>
