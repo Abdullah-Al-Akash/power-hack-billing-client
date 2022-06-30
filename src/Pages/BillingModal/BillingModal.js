@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './BillingModal.css';
 import { toast } from 'react-toastify';
 
-const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal }) => {
+const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal, currentMember }) => {
         // Add New Billing Information:
+        const [phoneError, setPhoneError] = useState('');
+        const [emailError, setEmailError] = useState('');
+        const [amountError, setAmountError] = useState('');
         const handleForm = e => {
                 e.preventDefault();
                 //Catch All Information:
@@ -12,6 +15,18 @@ const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal })
                 let phone = e.target.phone.value;
                 let amount = e.target.amount.value;
 
+                if (!/^(?:\+?88|0088)?01[15-9]\d{8}$/.test(phone)) {
+                        setPhoneError("Enter Valid Phone Number!")
+                        return;
+                }
+                if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+                        setEmailError("Enter Valid Email!")
+                        return;
+                }
+                if ((+amount) < 0) {
+                        setAmountError("Enter Positive Amount!")
+                        return;
+                }
                 // Set a Object for update and push data:
                 const billingData = {
                         name: name,
@@ -40,6 +55,9 @@ const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal })
                                         }
                                 })
                         setBilling(null);
+                        setPhoneError('');
+                        setEmailError('');
+                        setAmountError('');
                 }
 
                 // When PUT method Apply:
@@ -75,10 +93,13 @@ const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal })
                                         <label for="billing-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                                         <h3 class="text-lg font-bold text-center">Please Submit the form!</h3>
                                         <form onSubmit={handleForm} className="lg:px-12 px-4 pb-4">
-                                                <input type="text" name="name" placeholder="Full Name" class="input input-bordered w-full mt-8" />
-                                                <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mt-4" />
-                                                <input type="number" name="phone" placeholder="Phone" class="input input-bordered w-full mt-4" />
-                                                <input type="number" name="amount" placeholder="Paid Amount" class="input input-bordered w-full mt-4" />
+                                                <input type="text" name="name" placeholder="Full Name" defaultValue={currentMember?.name} class="input input-bordered w-full mt-8" required />
+                                                <input type="email" defaultValue={currentMember?.email} name="email" placeholder="Email" class="input input-bordered w-full mt-4" required />
+                                                <h3 className="text-red-600 pl-2">{emailError ? emailError : ''}</h3>
+                                                <input type="number" name="phone" placeholder="Phone" class="input input-bordered w-full mt-4" required />
+                                                <h3 className="text-red-600 pl-2">{phoneError ? phoneError : ''}</h3>
+                                                <input type="number" name="amount" placeholder="Paid Amount" class="input input-bordered w-full mt-4" required />
+                                                <h3 className="text-red-600 pl-2">{amountError ? amountError : ''}</h3>
                                                 <input type="submit" class="btn input-sm w-full mt-4" />
                                         </form>
                                 </div>

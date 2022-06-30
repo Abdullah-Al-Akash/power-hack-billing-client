@@ -17,6 +17,11 @@ const Navbar = ({ currentMember, amount }) => {
                                 </div>
                                 <div class="flex-none">
                                         <h2 className="text-xl font-bold mr-4">Paid Total: {amount}</h2>
+                                        <div class="avatar online mr-4">
+                                                <div class="w-12 rounded-full ring ring-black">
+                                                        <img src="https://placeimg.com/192/192/people" />
+                                                </div>
+                                        </div>
                                         <button
                                                 onClick={() => handleLogout()}
                                                 class="btn">Logout</button>

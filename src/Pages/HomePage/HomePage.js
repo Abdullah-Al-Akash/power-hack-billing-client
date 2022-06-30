@@ -121,18 +121,22 @@ const HomePage = () => {
                                         }
                                 </div>
                         </div>
+                        {/* For Update */}
                         {
                                 billing && <BillingModal
                                         setBilling={setBilling}
                                         method="POST"
+                                        currentMember={currentMember}
                                 ></BillingModal>
                         }
+                        {/* For Add New Bill */}
                         {
                                 updateModal && <BillingModal
                                         setBilling={setBilling}
                                         method="PUT"
                                         updateInformation={updateInformation}
                                         setUpdateModal={setUpdateModal}
+                                        currentMember={currentMember}
                                 ></BillingModal>
                         }
                 </div >

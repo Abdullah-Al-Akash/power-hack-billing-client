@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +6,8 @@ const Registration = () => {
 
         const navigate = useNavigate();
         // Handle Registration Form:
+        const [passwordError, setPasswordError] = useState('');
+        const [emailError, setEmailError] = useState('');
         const handleRegistration = e => {
                 e.preventDefault();
                 let name = e.target.name.value;
@@ -16,6 +18,15 @@ const Registration = () => {
                         name: name,
                         email: email,
                         password: password
+                }
+                // Error Handling:
+                if (!/^[0-9]{6}$/.test(password)) {
+                        setPasswordError('Password Must be 6 digit number!')
+                        return;
+                }
+                if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+                        setEmailError("Enter Valid Email!")
+                        return;
                 }
 
                 const url = 'http://localhost:5000/registration';
@@ -35,8 +46,11 @@ const Registration = () => {
                                 }
                                 else {
                                         toast("Something Went Wrong. Please ry again!")
+
                                 }
                         })
+                setPasswordError('');
+                setEmailError('')
         }
 
         // Navigate To Login:
@@ -51,8 +65,11 @@ const Registration = () => {
                                         <form onSubmit={handleRegistration}>
                                                 <input type="text" name="name" placeholder="Your Name" class="input input-bordered w-full max-w-xs mt-8" required />
                                                 <input type="email" name="email" placeholder="Your Email" class="input input-bordered w-full max-w-xs mt-4" required />
+                                                <h3 className="text-red-600 pl-2">{emailError ? emailError : ''}</h3>
                                                 <input type="password" name="password" placeholder="Your Password" class="input input-bordered w-full max-w-xs mt-4" required />
+                                                <h3 className="text-red-600 pl-2">{passwordError ? passwordError : ''}</h3>
                                                 <input type="submit" value="Registration" class="btn input-bordered w-full max-w-xs mt-4" />
+
                                         </form>
                                 </div>
                                 <div className="pl-8 pb-12">
