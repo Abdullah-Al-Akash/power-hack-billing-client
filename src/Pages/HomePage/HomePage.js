@@ -22,6 +22,7 @@ const HomePage = () => {
         const currentMember = user.find(u => u.email === memberLogin);
 
         // Load Data from Backend:
+        const [amount, setAmount] = useState(0);
         useEffect(() => {
                 const urlForAdmin = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`;
                 const urlForUser = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
@@ -29,6 +30,10 @@ const HomePage = () => {
                         .then(res => res.json())
                         .then(data => {
                                 setInformations(data)
+                                const totalAmount = informations?.reduce((accumulator, object) => {
+                                        return accumulator + parseFloat(object.amount);
+                                }, 0);
+                                setAmount(totalAmount);
                         })
         }, [informations])
 
@@ -74,6 +79,7 @@ const HomePage = () => {
         return (
                 <div>
                         <Navbar
+                                amount={amount}
                                 currentMember={currentMember}
                         ></Navbar>
                         <AddNewBill

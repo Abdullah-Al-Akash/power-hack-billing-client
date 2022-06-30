@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ currentMember }) => {
+const Navbar = ({ currentMember, amount }) => {
 
         const navigate = useNavigate();
         const handleLogout = () => {
@@ -16,7 +16,7 @@ const Navbar = ({ currentMember }) => {
                                         <a class="btn btn-ghost normal-case text-xl">Power Hack</a>
                                 </div>
                                 <div class="flex-none">
-                                        <h2 className="text-xl font-bold mr-4">Paid Total: 100USD</h2>
+                                        <h2 className="text-xl font-bold mr-4">Paid Total: {amount}</h2>
                                         <button
                                                 onClick={() => handleLogout()}
                                                 class="btn">Logout</button>
