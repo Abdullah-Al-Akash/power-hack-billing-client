@@ -38,7 +38,9 @@ const HomePage = () => {
                                 </div>
                         </div>
                         {
-                                billing && <BillingModal></BillingModal>
+                                billing && <BillingModal
+                                        setBilling={setBilling}
+                                ></BillingModal>
                         }
                 </div>
         );
