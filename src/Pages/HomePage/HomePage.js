@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './HomePage.css';
 import AddNewBill from '../AddNewBill/AddNewBill';
 import BillingList from '../BillingList/BillingList';
 import BillingModal from '../BillingModal/BillingModal';
@@ -10,10 +11,22 @@ const HomePage = () => {
         const [updateModal, setUpdateModal] = useState(null)
         const [informations, setInformations] = useState([]);
         const [updateInformation, setUpdateInformation] = useState({});
+        const [pageCount, setPageCount] = useState(0);
+        const [currentPage, setCurrentPage] = useState(0);
+        const [size, setSize] = useState(10);
+
+        useEffect(() => {
+                fetch('http://localhost:5000/bill-count')
+                        .then(res => res.json())
+                        .then(data => {
+                                const count = data.count;
+                                const pages = Math.ceil(count / 10);
+                                setPageCount(pages);
+                        })
+        }, [])
 
 
         // Delete Billing Information:
-        // Handle Delete Item:
         const handleDeleteBill = deletedBill => {
                 const sure = window.confirm(`Are you sure to delete ${deletedBill.name} ?`);
                 if (sure) {
@@ -41,10 +54,18 @@ const HomePage = () => {
 
         // Load Data from Backend:
         useEffect(() => {
-                fetch('http://localhost:5000/api/billing-list')
+                fetch(`http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`)
                         .then(res => res.json())
                         .then(data => setInformations(data))
         }, [informations])
+
+        if (informations.length === 0) {
+                return <div class="flex justify-center items-center">
+                        <div class="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                        </div>
+                </div>
+        }
         return (
                 <div>
                         <Navbar></Navbar>
@@ -75,6 +96,16 @@ const HomePage = () => {
                                                         }
                                                 </tbody>
                                         </table>
+                                </div>
+                                <div className="text-center mt-12 mb-12">
+                                        {
+                                                [...Array(pageCount).keys()].map(number => <button
+                                                        onClick={() => setCurrentPage(number)}
+                                                        className={`btn btn-outline btn-sm ml-3 ${currentPage === number ? 'selected' : ''}`}
+                                                >
+                                                        {number + 1}
+                                                </button>)
+                                        }
                                 </div>
                         </div>
                         {
