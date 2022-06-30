@@ -36,6 +36,7 @@ const HomePage = () => {
                                                 <tbody>
                                                         {
                                                                 informations.map(information => <BillingList
+                                                                        key={information._id}
                                                                         information={information}
                                                                 ></BillingList>)
                                                         }

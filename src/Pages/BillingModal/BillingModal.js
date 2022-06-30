@@ -1,5 +1,6 @@
 import React from 'react';
 import './BillingModal.css';
+import { toast } from 'react-toastify';
 
 const BillingModal = ({ setBilling }) => {
         const handleForm = e => {
@@ -9,7 +10,30 @@ const BillingModal = ({ setBilling }) => {
                 const phone = e.target.phone.value;
                 const amount = e.target.amount.value;
 
-                console.log(name, email, phone, amount);
+                const billingData = {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        amount: amount
+                }
+
+                const url = 'http://localhost:5000/api/add-billing';
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                                "content-type": "application/json"
+                        },
+                        body: JSON.stringify(billingData)
+                })
+                        .then(res => res.json())
+                        .then(result => {
+                                if (result.insertedId) {
+                                        toast.success("Successfully Paid Bill!");
+                                }
+                                else {
+                                        toast("Something Went Wrong. Please ry again!")
+                                }
+                        })
                 setBilling(null);
 
         }
