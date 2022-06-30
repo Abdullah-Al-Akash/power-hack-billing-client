@@ -21,8 +21,21 @@ const HomePage = () => {
         const memberLogin = localStorage.getItem("user");
         const currentMember = user.find(u => u.email === memberLogin);
 
+        // Load Data from Backend:
         useEffect(() => {
-                fetch('http://localhost:5000/bill-count')
+                const urlForAdmin = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`;
+                const urlForUser = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
+                fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
+                        .then(res => res.json())
+                        .then(data => {
+                                setInformations(data)
+                        })
+        }, [informations])
+
+        useEffect(() => {
+                const urlForAdmin = `http://localhost:5000/bill-count`;
+                const urlForUser = `http://localhost:5000/bill-count?email=${currentMember?.email}`;
+                fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
                         .then(res => res.json())
                         .then(data => {
                                 const count = data.count;
@@ -58,20 +71,6 @@ const HomePage = () => {
                 setUpdateInformation(billingInformation)
         }
 
-        // Load Data from Backend:
-        useEffect(() => {
-                fetch(`http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`)
-                        .then(res => res.json())
-                        .then(data => setInformations(data))
-        }, [informations])
-
-        if (!informations.length) {
-                return <div class="flex justify-center items-center">
-                        <div class="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                        </div>
-                </div>
-        }
         return (
                 <div>
                         <Navbar
