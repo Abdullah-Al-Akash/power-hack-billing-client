@@ -5,6 +5,7 @@ import BillingList from '../BillingList/BillingList';
 import BillingModal from '../BillingModal/BillingModal';
 import Navbar from '../Navbar/Navbar';
 import { toast } from 'react-toastify';
+import Users from '../../hooks/user';
 
 const HomePage = () => {
         const [billing, setBilling] = useState(null)
@@ -14,6 +15,11 @@ const HomePage = () => {
         const [pageCount, setPageCount] = useState(0);
         const [currentPage, setCurrentPage] = useState(0);
         const [size, setSize] = useState(10);
+
+        // Local Storage:
+        const [user] = Users();
+        const memberLogin = localStorage.getItem("user");
+        const currentMember = user.find(u => u.email === memberLogin);
 
         useEffect(() => {
                 fetch('http://localhost:5000/bill-count')
@@ -59,7 +65,7 @@ const HomePage = () => {
                         .then(data => setInformations(data))
         }, [informations])
 
-        if (informations.length === 0) {
+        if (!informations.length) {
                 return <div class="flex justify-center items-center">
                         <div class="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0" role="status">
                                 <span class="visually-hidden">Loading...</span>
@@ -68,7 +74,9 @@ const HomePage = () => {
         }
         return (
                 <div>
-                        <Navbar></Navbar>
+                        <Navbar
+                                currentMember={currentMember}
+                        ></Navbar>
                         <AddNewBill
                                 setBilling={setBilling}
                         ></AddNewBill>
