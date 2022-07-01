@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# PowerHack
+<h3>Live Site: <a target="_blank" href="">PowerHack</a></h3>
+<br>
+<h4 className="font-bold text-sm">For Admin Credential: <br />Email: admin@gmail.com <br /> Password: 123456</h4>
+                                                <h4 className="font-bold text-sm text-red-500">You can also register here! But you will only see your own bill-list there!</h4>
+<h5>Hello!</h5>
+<br/>
+<p>This is PowerHack pay billing website what I have build with MERN technology.  That was a challenging project for me as I have implement custom authentication as well as JWT technology which was very interesting.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<br/> For complete this site I have used some technology and I
+        also want to tell what service anyone can get from this website.</p>
+<h5>Actually This is a bill pay website where someone can--</h5>
+<ul>
+        <li>
+        Anyone can login with admin credential, admin can see all of bill list.
+        </li>
+        <li>
+                Normal user can only see own bill list. 
+        </li>
+        <li>
+                Anyone can register account with normal email and password.
+        </li>
+        <li>
+                Anyone can pay bill own's bill.
+        </li>
+        <li>
+        As well as people can update bill information also as well as also delete.
+        </li>
+        <li>
+        As I have used mongoDB database so data will be store in mongoDB of user and bill-list.
+        </li>
+</ul>
+<h5>I have also used some technologies for create the website. Some of them are--</h5>
+<ul>
+        <li>
+                React.js for UI
+        </li>
+        <li>
+                Tailwind.CSS
+        </li>
+        <li>
+                Express.js for backend work
+        </li>
+        <li>
+                React Router for Routing setup
+        </li>
+        <li>
+                Json Web Token
+        </li>
+        <li>
+                Toastify for Toast
+        </li>
+        <li>
+        Custom Authentication
+        </li>
+        <li>
+        Netlify Hosting
+        </li>
+        <li>
+        MongoDB Atlas for Database
+        </li>
+        <li>
+                Heroku for live API(for get data)
+        </li>
+</ul>
+<br>
+<h4>I have shared the Home page UI in below-</h4>
+<br> <br>
+<img src="https://i.ibb.co/brMJWFF/localhost-3000-4.png" alt="">
+<br><br>
+<h3>That's it, Thank You</h3>

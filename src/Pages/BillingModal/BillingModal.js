@@ -87,20 +87,20 @@ const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal, c
 
         return (
                 <div>
-                        <input type="checkbox" id="billing-modal" class="modal-toggle" />
-                        <div class="modal">
-                                <div class="modal-box relative">
-                                        <label for="billing-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                                        <h3 class="text-lg font-bold text-center">Please Submit the form!</h3>
+                        <input type="checkbox" id="billing-modal" className="modal-toggle" />
+                        <div className="modal">
+                                <div className="modal-box relative">
+                                        <label htmlFor="billing-modal" className="btn btn-sm btn-circle absolute right-2 top-2 bg-red-400">✕</label>
+                                        <h3 className="font-bold text-center text-2xl mt-4 text-red-400">Submit Bill Details!</h3>
                                         <form onSubmit={handleForm} className="lg:px-12 px-4 pb-4">
-                                                <input type="text" name="name" placeholder="Full Name" defaultValue={currentMember?.name} class="input input-bordered w-full mt-8" required />
-                                                <input type="email" defaultValue={currentMember?.email} name="email" placeholder="Email" class="input input-bordered w-full mt-4" required />
+                                                <input type="text" name="name" placeholder="Full Name" defaultValue={currentMember?.name} className="input input-bordered w-full mt-8" required />
+                                                <input type="email" defaultValue={currentMember?.email} name="email" placeholder="Email" className="input input-bordered w-full mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{emailError ? emailError : ''}</h3>
-                                                <input type="number" name="phone" placeholder="Phone" class="input input-bordered w-full mt-4" required />
+                                                <input type="number" name="phone" placeholder="Phone" className="input input-bordered w-full mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{phoneError ? phoneError : ''}</h3>
-                                                <input type="number" name="amount" placeholder="Paid Amount" class="input input-bordered w-full mt-4" required />
+                                                <input type="number" name="amount" placeholder="Paid Amount" className="input input-bordered w-full mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{amountError ? amountError : ''}</h3>
-                                                <input type="submit" class="btn input-sm w-full mt-4" />
+                                                <input type="submit" className="btn input-sm w-full mt-4 bg-red-400" />
                                         </form>
                                 </div>
                         </div>

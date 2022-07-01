@@ -27,18 +27,6 @@ const Login = () => {
                 }
                 localStorage.setItem("user", email);
 
-                // const currentUser = users.find(user => user.email === email && user.password == password);
-                // if (currentUser) {
-                //         toast.success("Successfully Login");
-                //         localStorage.setItem("user", currentUser.email);
-                //         navigate('/');
-                //         setUserNotFound('')
-                // }
-                // else {
-                //         toast.error("Something went wrong. Please try again!");
-                //         setUserNotFound('User not found!')
-                // }
-
                 fetch('http://localhost:5000/login', {
                         method: 'POST',
                         headers: {
@@ -71,15 +59,19 @@ const Login = () => {
         }
         return (
                 <div className="flex justify-center items-center h-screen">
-                        <div class="card w-96 bg-base-100 shadow-xl">
-                                <div class="card-body">
-                                        <h2 class="text-center font-bold text-2xl">Please Login!</h2>
+                        <div className="card w-96 bg-base-100 shadow-xl">
+                                <div className="card-body">
+                                        <h2 className="text-center font-bold text-2xl">Please Login!</h2>
+                                        <div>
+                                                <h4 className="font-bold text-sm">For Admin Credential: <br />Email: admin@gmail.com <br /> Password: 123456</h4>
+                                                <h4 className="font-bold text-sm text-red-500">You can also register here! But you will only see your own bill-list there!</h4>
+                                        </div>
                                         <form onSubmit={handleLogin}>
-                                                <input type="email" name="email" placeholder="Your Email" class="input input-bordered w-full max-w-xs mt-4" required />
+                                                <input type="email" name="email" placeholder="Your Email" className="input input-bordered w-full max-w-xs mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{emailError ? emailError : ''}</h3>
-                                                <input type="password" name="password" placeholder="Your Password" class="input input-bordered w-full max-w-xs mt-4" required />
+                                                <input type="password" name="password" placeholder="Your Password" className="input input-bordered w-full max-w-xs mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{passwordError ? passwordError : ''}</h3>
-                                                <input type="submit" value="Login" class="btn input-bordered w-full max-w-xs mt-4" />
+                                                <input type="submit" value="Login" className="btn input-bordered w-full max-w-xs mt-4" />
                                                 <h3 className="text-red-600 pl-2">{userNotFound ? userNotFound : ''}</h3>
                                         </form>
                                 </div>

@@ -43,7 +43,7 @@ const Registration = () => {
                                 console.log(result)
                                 if (result.success) {
                                         localStorage.setItem("token", result.accessToken);
-                                        toast.success("Registration Successfully Done! Please login Now!");
+                                        toast.success("Registration Successfully Done!");
                                         navigate('/');
 
                                 }
@@ -62,16 +62,16 @@ const Registration = () => {
         }
         return (
                 <div className="flex justify-center items-center h-screen">
-                        <div class="card w-96 bg-base-100 shadow-xl">
-                                <div class="card-body">
-                                        <h2 class="text-center font-bold text-2xl">Registration Now</h2>
+                        <div className="card w-96 bg-base-100 shadow-xl">
+                                <div className="card-body">
+                                        <h2 className="text-center font-bold text-2xl">Registration Now</h2>
                                         <form onSubmit={handleRegistration}>
-                                                <input type="text" name="name" placeholder="Your Name" class="input input-bordered w-full max-w-xs mt-8" required />
-                                                <input type="email" name="email" placeholder="Your Email" class="input input-bordered w-full max-w-xs mt-4" required />
+                                                <input type="text" name="name" placeholder="Your Name" className="input input-bordered w-full max-w-xs mt-8" required />
+                                                <input type="email" name="email" placeholder="Your Email" className="input input-bordered w-full max-w-xs mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{emailError ? emailError : ''}</h3>
-                                                <input type="password" name="password" placeholder="Your Password" class="input input-bordered w-full max-w-xs mt-4" required />
+                                                <input type="password" name="password" placeholder="Your Password" className="input input-bordered w-full max-w-xs mt-4" required />
                                                 <h3 className="text-red-600 pl-2">{passwordError ? passwordError : ''}</h3>
-                                                <input type="submit" value="Registration" class="btn input-bordered w-full max-w-xs mt-4" />
+                                                <input type="submit" value="Registration" className="btn input-bordered w-full max-w-xs mt-4" />
 
                                         </form>
                                 </div>

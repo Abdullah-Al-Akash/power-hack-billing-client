@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import Users from '../../hooks/user';
 
 const HomePage = () => {
+        const [searchBillList, setSearchBillList] = useState([]);
         const [billing, setBilling] = useState(null)
         const [updateModal, setUpdateModal] = useState(null)
         const [informations, setInformations] = useState([]);
@@ -24,7 +25,6 @@ const HomePage = () => {
         // Load Data from Backend:
         const [amount, setAmount] = useState(0);
         useEffect(() => {
-
                 const urlForAdmin = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`;
                 const urlForUser = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
                 fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
@@ -36,7 +36,7 @@ const HomePage = () => {
                                 }, 0);
                                 setAmount(totalAmount);
                         })
-        }, [informations])
+        }, [informations, searchBillList])
 
         useEffect(() => {
                 const urlForAdmin = `http://localhost:5000/bill-count`;
@@ -77,49 +77,80 @@ const HomePage = () => {
                 setUpdateInformation(billingInformation)
         }
 
+        // Search Bill List:
+        const [searchField, setSearchField] = useState('');
+        const searchBill = e => {
+                const searchText = e.target.value;
+                setSearchField(searchText)
+                const matchResult = informations?.filter(info => info.name.toLowerCase().includes(searchText.toLowerCase()) || info.email.toLowerCase().includes(searchText.toLowerCase()) || info.phone.includes(searchText))
+                setSearchBillList(matchResult);
+        }
         return (
-                <div>
+                <div className="relative">
                         <Navbar
                                 amount={amount}
                                 currentMember={currentMember}
                         ></Navbar>
-                        <AddNewBill
-                                setBilling={setBilling}
-                        ></AddNewBill>
-                        <div className="container mx-auto px-24 pt-4">
-                                <div class="overflow-x-auto">
-                                        <table class="table w-full">
-                                                <thead>
-                                                        <tr>
-                                                                <th>Billing ID</th>
-                                                                <th>Full Name</th>
-                                                                <th>Email</th>
-                                                                <th>Phone</th>
-                                                                <th>Paid Amount</th>
-                                                                <th>Action</th>
-                                                        </tr>
-                                                </thead>
-                                                <tbody>
-                                                        {
-                                                                informations.map(information => <BillingList
-                                                                        key={information._id}
-                                                                        information={information}
-                                                                        handleDeleteBill={handleDeleteBill}
-                                                                        handleUpdateBill={handleUpdateBill}
-                                                                ></BillingList>)
-                                                        }
-                                                </tbody>
-                                        </table>
+                        {/* Add New Bill */}
+                        <div className="bg-red-100 pb-20">
+                                <div className="container mx-auto px-20 pt-24">
+                                        <div className="navbar px-8 rounded pt-4 pb-4 bg-red-300">
+                                                <div className="flex-1">
+                                                        <a className="normal-case text-xl font-bold">Billings</a>
+                                                        <div className="form-control pl-12">
+                                                                <input onChange={searchBill} type="text" placeholder="Search" className="input input-bordered " />
+                                                        </div>
+                                                </div>
+
+                                                <div className="flex-none gap-2">
+                                                        <div className="dropdown dropdown-end">
+                                                                <label onClick={() => setBilling(1)} for="billing-modal" className="btn btn-wide bg-black">Add New Bill</label>
+                                                        </div>
+                                                </div>
+                                        </div>
                                 </div>
-                                <div className="text-center mt-12 mb-12">
-                                        {
-                                                [...Array(pageCount).keys()].map(number => <button
-                                                        onClick={() => setCurrentPage(number)}
-                                                        className={`btn btn-outline btn-sm ml-3 ${currentPage === number ? 'selected' : ''}`}
-                                                >
-                                                        {number + 1}
-                                                </button>)
-                                        }
+                                <div className="container mx-auto px-24 pt-4">
+                                        <div className="overflow-x-auto">
+                                                <table className="table w-full">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th className="text-lg text-green-500">Billing ID</th>
+                                                                        <th className="text-lg text-green-500">Full Name</th>
+                                                                        <th className="text-lg text-green-500">Email</th>
+                                                                        <th className="text-lg text-green-500">Phone</th>
+                                                                        <th className="text-lg text-green-500">Paid Amount</th>
+                                                                        <th className="text-lg text-green-500">Action</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                                {
+                                                                        searchField.length ? searchBillList.map(information => <BillingList
+                                                                                key={information._id}
+                                                                                information={information}
+                                                                                handleDeleteBill={handleDeleteBill}
+                                                                                handleUpdateBill={handleUpdateBill}
+                                                                        ></BillingList>)
+                                                                                : informations.map(information => <BillingList
+                                                                                        key={information._id}
+                                                                                        information={information}
+                                                                                        handleDeleteBill={handleDeleteBill}
+                                                                                        handleUpdateBill={handleUpdateBill}
+                                                                                ></BillingList>)
+                                                                }
+                                                        </tbody>
+                                                </table>
+                                        </div>
+                                        <div className="text-center mt-12 mb-12">
+                                                {
+                                                        [...Array(pageCount).keys()].map(number => <button
+                                                                onClick={() => setCurrentPage(number)}
+                                                                className={`btn btn-outline btn-sm ml-3 ${currentPage === number ? 'selected' : ''}`}
+                                                        >
+                                                                {number + 1}
+                                                        </button>)
+                                                }
+                                        </div>
                                 </div>
                         </div>
                         {/* For Update */}
