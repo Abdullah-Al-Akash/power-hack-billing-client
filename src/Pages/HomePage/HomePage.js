@@ -18,12 +18,13 @@ const HomePage = () => {
 
         // Local Storage:
         const [user] = Users();
-        const memberLogin = localStorage.getItem("user");
-        const currentMember = user.find(u => u.email === memberLogin);
+        const memberLogin = localStorage?.getItem("user");
+        const currentMember = user?.find(u => u?.email === memberLogin ? memberLogin : '');
 
         // Load Data from Backend:
         const [amount, setAmount] = useState(0);
         useEffect(() => {
+
                 const urlForAdmin = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`;
                 const urlForUser = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
                 fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)

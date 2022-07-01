@@ -13,7 +13,7 @@ const Login = () => {
         const [userNotFound, setUserNotFound] = useState('');
         const handleLogin = e => {
                 e.preventDefault();
-                let email = e.target.email.value;
+                let email = e.target.email?.value;
                 let password = e.target.password.value;
 
                 // Error Handling:
@@ -25,18 +25,42 @@ const Login = () => {
                         setEmailError("Enter Valid Email!")
                         return;
                 }
+                localStorage.setItem("user", email);
 
-                const currentUser = users.find(user => user.email === email && user.password == password);
-                if (currentUser) {
-                        toast.success("Successfully Login");
-                        localStorage.setItem("user", currentUser.email);
-                        navigate('/');
-                        setUserNotFound('')
-                }
-                else {
-                        toast.error("Something went wrong. Please try again!");
-                        setUserNotFound('User not found!')
-                }
+                // const currentUser = users.find(user => user.email === email && user.password == password);
+                // if (currentUser) {
+                //         toast.success("Successfully Login");
+                //         localStorage.setItem("user", currentUser.email);
+                //         navigate('/');
+                //         setUserNotFound('')
+                // }
+                // else {
+                //         toast.error("Something went wrong. Please try again!");
+                //         setUserNotFound('User not found!')
+                // }
+
+                fetch('http://localhost:5000/login', {
+                        method: 'POST',
+                        headers: {
+                                'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                })
+                        .then(res => res.json())
+                        .then(data => {
+                                if (data.success) {
+                                        localStorage.setItem("token", data.accessToken);
+                                        const currentUser = users?.find(user => user?.email === email && user?.password == password);
+                                        // localStorage.setItem("user", currentUser?.email);
+                                        toast.success("Successfully Login");
+                                        navigate('/');
+                                        setUserNotFound('')
+                                }
+                                else {
+                                        toast.error("Something went wrong. Please try again!");
+                                        setUserNotFound('User not found!')
+                                }
+                        })
                 setPasswordError('');
                 setEmailError('')
         }

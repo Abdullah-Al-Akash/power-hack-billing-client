@@ -28,6 +28,7 @@ const Registration = () => {
                         setEmailError("Enter Valid Email!")
                         return;
                 }
+                localStorage.setItem("user", email);
 
                 const url = 'http://localhost:5000/registration';
                 fetch(url, {
@@ -39,10 +40,12 @@ const Registration = () => {
                 })
                         .then(res => res.json())
                         .then(result => {
-                                if (result.insertedId) {
-                                        localStorage.setItem("user", email);
+                                console.log(result)
+                                if (result.success) {
+                                        localStorage.setItem("token", result.accessToken);
+                                        toast.success("Registration Successfully Done! Please login Now!");
                                         navigate('/');
-                                        toast.success("Registration Successfully Done!");
+
                                 }
                                 else {
                                         toast("Something Went Wrong. Please ry again!")
