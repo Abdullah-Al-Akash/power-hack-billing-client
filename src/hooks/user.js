@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 const Users = () => {
         const [user, setUser] = useState([]);
         // useEffect(() => {
-        //         fetch('http://localhost:5000/members')
+        //         fetch('https://powerhack-paybill.herokuapp.com/members')
         //                 .then(res => res.json())
         //                 .then(data => setUser(data))
         // }, [])
         // return [user];
         const navigate = useNavigate()
         useEffect(() => {
-                fetch('http://localhost:5000/members', {
+                fetch('https://powerhack-paybill.herokuapp.com/members', {
                         method: 'GET',
                         headers: {
                                 authorization: `Bearer ${localStorage?.getItem('token')}`
