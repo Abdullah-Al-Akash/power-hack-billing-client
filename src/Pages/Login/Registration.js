@@ -30,7 +30,7 @@ const Registration = () => {
                 }
                 localStorage.setItem("user", email);
 
-                const url = 'http://localhost:5000/registration';
+                const url = 'https://power-hack-billing-backend.vercel.app/registration';
                 fetch(url, {
                         method: "POST",
                         headers: {

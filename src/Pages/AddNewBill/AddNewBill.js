@@ -14,7 +14,7 @@ const AddNewBill = ({ setBilling }) => {
 
                                 <div className="flex-none gap-2">
                                         <div className="dropdown dropdown-end">
-                                                <label onClick={() => setBilling(1)} for="billing-modal" className="btn btn-wide">Add New Bill</label>
+                                                <label onClick={() => setBilling(1)} htmlFor="billing-modal" className="btn btn-wide">Add New Bill</label>
                                         </div>
                                 </div>
                         </div>

@@ -6,6 +6,7 @@ import BillingModal from '../BillingModal/BillingModal';
 import Navbar from '../Navbar/Navbar';
 import { toast } from 'react-toastify';
 import Users from '../../hooks/user';
+import spinner from '../../images/spinner.gif'
 
 const HomePage = () => {
         const [searchBillList, setSearchBillList] = useState([]);
@@ -25,8 +26,8 @@ const HomePage = () => {
         // Load Data from Backend:
         const [amount, setAmount] = useState(0);
         useEffect(() => {
-                const urlForAdmin = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`;
-                const urlForUser = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
+                const urlForAdmin = `https://power-hack-billing-backend.vercel.app/api/billing-list?page=${currentPage}&size=${size}`;
+                const urlForUser = `https://power-hack-billing-backend.vercel.app/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
                 fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
                         .then(res => res.json())
                         .then(data => {
@@ -39,8 +40,8 @@ const HomePage = () => {
         }, [informations, searchBillList])
 
         useEffect(() => {
-                const urlForAdmin = `http://localhost:5000/bill-count`;
-                const urlForUser = `http://localhost:5000/bill-count?email=${currentMember?.email}`;
+                const urlForAdmin = `https://power-hack-billing-backend.vercel.app/bill-count`;
+                const urlForUser = `https://power-hack-billing-backend.vercel.app/bill-count?email=${currentMember?.email}`;
                 fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
                         .then(res => res.json())
                         .then(data => {
@@ -55,7 +56,7 @@ const HomePage = () => {
         const handleDeleteBill = deletedBill => {
                 const sure = window.confirm(`Are you sure to delete ${deletedBill.name} ?`);
                 if (sure) {
-                        const url = `http://localhost:5000/api/delete-billing/${deletedBill._id}`;
+                        const url = `https://power-hack-billing-backend.vercel.app/api/delete-billing/${deletedBill._id}`;
                         fetch(url, {
                                 method: 'DELETE',
                         })
@@ -93,7 +94,7 @@ const HomePage = () => {
                         ></Navbar>
                         {/* Add New Bill */}
                         <div className="bg-red-100 pb-20">
-                                <div className="container mx-auto px-20 pt-24">
+                                <div className="container  px-8 mx-auto pt-24">
                                         <div className="navbar px-8 rounded pt-4 pb-4 bg-red-300">
                                                 <div className="flex-1">
                                                         <a className="normal-case text-xl font-bold">Billings</a>
@@ -104,46 +105,64 @@ const HomePage = () => {
 
                                                 <div className="flex-none gap-2">
                                                         <div className="dropdown dropdown-end">
-                                                                <label onClick={() => setBilling(1)} for="billing-modal" className="btn btn-wide bg-black">Add New Bill</label>
+                                                                <label onClick={() => setBilling(1)} htmlFor="billing-modal" className="btn btn-wide bg-black">Add New Bill</label>
                                                         </div>
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="container mx-auto px-24 pt-4">
+                                <div className="container mx-auto px-8 pt-4">
                                         <div className="overflow-x-auto">
                                                 <table className="table w-full">
                                                         <thead>
                                                                 <tr>
                                                                         <th className="text-lg text-green-500">Billing ID</th>
-                                                                        <th className="text-lg text-green-500">Full Name</th>
-                                                                        <th className="text-lg text-green-500">Email</th>
-                                                                        <th className="text-lg text-green-500">Phone</th>
+                                                                        <th className="text-lg pl-24 text-green-500">Full Name</th>
+                                                                        <th className="text-lg pr-20 text-green-500">Email</th>
+                                                                        <th className="text-lg pl-20 text-green-500">Phone</th>
                                                                         <th className="text-lg text-green-500">Paid Amount</th>
-                                                                        <th className="text-lg text-green-500">Action</th>
+                                                                        <th className="text-lg pr-12 text-green-500">Action</th>
                                                                 </tr>
                                                         </thead>
-                                                        <tbody>
 
-                                                                {
-                                                                        searchField.length ? searchBillList.map(information => <BillingList
-                                                                                key={information._id}
-                                                                                information={information}
-                                                                                handleDeleteBill={handleDeleteBill}
-                                                                                handleUpdateBill={handleUpdateBill}
-                                                                        ></BillingList>)
-                                                                                : informations.map(information => <BillingList
-                                                                                        key={information._id}
-                                                                                        information={information}
-                                                                                        handleDeleteBill={handleDeleteBill}
-                                                                                        handleUpdateBill={handleUpdateBill}
-                                                                                ></BillingList>)
-                                                                }
-                                                        </tbody>
                                                 </table>
+
+                                                {
+                                                        !informations.length ?
+                                                                <div className="w-full text-center">
+
+                                                                        <img className="mx-auto " src={spinner} alt="" />
+                                                                        <h1>Loading...</h1>
+                                                                </div>
+                                                                :
+                                                                <table>
+                                                                        <tbody>
+                                                                                {
+
+
+
+                                                                                        searchField.length ? searchBillList.map(information => <BillingList
+                                                                                                key={information._id}
+                                                                                                information={information}
+                                                                                                handleDeleteBill={handleDeleteBill}
+                                                                                                handleUpdateBill={handleUpdateBill}
+                                                                                        ></BillingList>)
+                                                                                                : informations.map(information => <BillingList
+                                                                                                        key={information._id}
+                                                                                                        information={information}
+                                                                                                        handleDeleteBill={handleDeleteBill}
+                                                                                                        handleUpdateBill={handleUpdateBill}
+                                                                                                ></BillingList>)
+
+                                                                                }
+
+                                                                        </tbody>
+                                                                </table>
+                                                }
                                         </div>
                                         <div className="text-center mt-12 mb-12">
                                                 {
                                                         [...Array(pageCount).keys()].map(number => <button
+                                                                key={number}
                                                                 onClick={() => setCurrentPage(number)}
                                                                 className={`btn btn-outline btn-sm ml-3 ${currentPage === number ? 'selected' : ''}`}
                                                         >

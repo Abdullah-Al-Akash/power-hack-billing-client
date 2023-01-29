@@ -12,7 +12,7 @@ const Navbar = ({ currentMember, amount }) => {
 
         return (
                 <div>
-                        <div className="container mx-auto px-12 navbar bg-stone-800 text-red-300 p-4 fixed top-0 z-50">
+                        <div className="container-fluid mx-auto px-12 navbar bg-stone-800 text-red-300 p-4 fixed top-0 z-50">
                                 <div className="flex-1">
                                         <a className="btn btn-ghost normal-case text-white text-3xl">
                                                 <span className="text-5xl text-green-400">P</span>ower <span className="text-2xl text-red-300">H</span>ack
