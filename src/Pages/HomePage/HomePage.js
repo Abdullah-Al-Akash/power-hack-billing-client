@@ -116,25 +116,24 @@ const HomePage = () => {
                                                         <thead>
                                                                 <tr>
                                                                         <th className="text-lg text-green-500">Billing ID</th>
-                                                                        <th className="text-lg pl-24 text-green-500">Full Name</th>
-                                                                        <th className="text-lg pr-20 text-green-500">Email</th>
-                                                                        <th className="text-lg pl-20 text-green-500">Phone</th>
+                                                                        <th className="text-lg  text-green-500">Full Name</th>
+                                                                        <th className="text-lg text-green-500">Email</th>
+                                                                        <th className="text-lg  text-green-500">Phone</th>
                                                                         <th className="text-lg text-green-500">Paid Amount</th>
-                                                                        <th className="text-lg pr-12 text-green-500">Action</th>
+                                                                        <th className="text-lg text-green-500">Action</th>
                                                                 </tr>
                                                         </thead>
 
-                                                </table>
 
-                                                {
-                                                        !informations.length ?
-                                                                <div className="w-full text-center">
 
-                                                                        <img className="mx-auto " src={spinner} alt="" />
-                                                                        <h1>Loading...</h1>
-                                                                </div>
-                                                                :
-                                                                <table>
+                                                        {
+                                                                !informations.length ?
+                                                                        <div className="w-full text-center">
+
+                                                                                <img className="mx-auto " src={spinner} alt="" />
+                                                                                <h1>Loading...</h1>
+                                                                        </div>
+                                                                        :
                                                                         <tbody>
                                                                                 {
 
@@ -156,8 +155,8 @@ const HomePage = () => {
                                                                                 }
 
                                                                         </tbody>
-                                                                </table>
-                                                }
+                                                        }
+                                                </table>
                                         </div>
                                         <div className="text-center mt-12 mb-12">
                                                 {

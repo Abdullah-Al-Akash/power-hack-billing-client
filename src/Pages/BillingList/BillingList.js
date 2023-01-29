@@ -4,13 +4,14 @@ const BillingList = ({ information, handleDeleteBill, handleUpdateBill }) => {
         const { _id, name, amount, email, phone } = information;
 
         return (
+
                 <tr>
                         <td>{_id ? _id : 'loading'}</td>
-                        <td className="mx-auto p-4 pl-20">{name}</td>
-                        <td className="mx-auto pl-8">{email}</td>
-                        <td className="mx-auto pl-32">{phone}</td>
-                        <td className="mx-auto pl-32">{amount}</td>
-                        <td className="mx-auto pl-32">
+                        <td className="">{name}</td>
+                        <td className="">{email}</td>
+                        <td className="">{phone}</td>
+                        <td className="">{amount}</td>
+                        <td className="">
                                 <label htmlFor="billing-modal"
                                         onClick={() => handleUpdateBill(information)}
                                         className="btn btn-outline btn-success  btn-sm mr-2">Edit</label>
