@@ -27,7 +27,7 @@ const Login = () => {
                 }
                 localStorage.setItem("user", email);
 
-                fetch('https://powerhack-paybill.herokuapp.com/login', {
+                fetch('http://localhost:5000/login', {
                         method: 'POST',
                         headers: {
                                 'content-type': 'application/json'

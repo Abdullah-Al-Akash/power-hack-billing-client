@@ -37,7 +37,7 @@ const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal, c
 
                 // When Post method Apply:
                 if (method === 'POST') {
-                        const url = 'https://powerhack-paybill.herokuapp.com/api/add-billing';
+                        const url = 'http://localhost:5000/api/add-billing';
                         fetch(url, {
                                 method: method,
                                 headers: {
@@ -62,7 +62,7 @@ const BillingModal = ({ setBilling, method, updateInformation, setUpdateModal, c
 
                 // When PUT method Apply:
                 if (method === "PUT") {
-                        const url = `https://powerhack-paybill.herokuapp.com/api/update-billing/${updateInformation._id}`
+                        const url = `http://localhost:5000/api/update-billing/${updateInformation._id}`
                         fetch(url, {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json' },

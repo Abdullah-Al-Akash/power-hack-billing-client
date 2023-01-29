@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import profile from '../../images/profile.png';
 
 const Navbar = ({ currentMember, amount }) => {
 
@@ -18,10 +19,10 @@ const Navbar = ({ currentMember, amount }) => {
                                         </a>
                                 </div>
                                 <div className="flex-none">
-                                        <h2 className="text-xl font-bold mr-4">Paid Total: {amount}</h2>
+                                        <h1 className="text-3xl font-bold text-green-400 mr-8">Paid Total(This Page): {amount}</h1>
                                         <div className="avatar online mr-4">
                                                 <div className="w-12 rounded-full ring ring-red-300">
-                                                        <img src="https://placeimg.com/192/192/people" />
+                                                        <img src={profile} alt="" />
                                                 </div>
                                         </div>
                                         <button

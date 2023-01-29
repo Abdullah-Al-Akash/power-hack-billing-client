@@ -25,8 +25,8 @@ const HomePage = () => {
         // Load Data from Backend:
         const [amount, setAmount] = useState(0);
         useEffect(() => {
-                const urlForAdmin = `https://powerhack-paybill.herokuapp.com/api/billing-list?page=${currentPage}&size=${size}`;
-                const urlForUser = `https://powerhack-paybill.herokuapp.com/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
+                const urlForAdmin = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}`;
+                const urlForUser = `http://localhost:5000/api/billing-list?page=${currentPage}&size=${size}&email=${currentMember?.email}`;
                 fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
                         .then(res => res.json())
                         .then(data => {
@@ -39,8 +39,8 @@ const HomePage = () => {
         }, [informations, searchBillList])
 
         useEffect(() => {
-                const urlForAdmin = `https://powerhack-paybill.herokuapp.com/bill-count`;
-                const urlForUser = `https://powerhack-paybill.herokuapp.com/bill-count?email=${currentMember?.email}`;
+                const urlForAdmin = `http://localhost:5000/bill-count`;
+                const urlForUser = `http://localhost:5000/bill-count?email=${currentMember?.email}`;
                 fetch(currentMember?.role === 'admin' ? urlForAdmin : urlForUser)
                         .then(res => res.json())
                         .then(data => {
@@ -55,7 +55,7 @@ const HomePage = () => {
         const handleDeleteBill = deletedBill => {
                 const sure = window.confirm(`Are you sure to delete ${deletedBill.name} ?`);
                 if (sure) {
-                        const url = `https://powerhack-paybill.herokuapp.com/api/delete-billing/${deletedBill._id}`;
+                        const url = `http://localhost:5000/api/delete-billing/${deletedBill._id}`;
                         fetch(url, {
                                 method: 'DELETE',
                         })

@@ -30,7 +30,7 @@ const Registration = () => {
                 }
                 localStorage.setItem("user", email);
 
-                const url = 'https://powerhack-paybill.herokuapp.com/registration';
+                const url = 'http://localhost:5000/registration';
                 fetch(url, {
                         method: "POST",
                         headers: {
